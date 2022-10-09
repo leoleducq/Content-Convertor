@@ -1,0 +1,5 @@
+env/
+credentials.py
+*.png
+__pycache__/
+contentconvertortwitterapi.txt
