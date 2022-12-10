@@ -10,7 +10,16 @@ from tweetcapture import *
 
 
 class GetTweets :
+
     def __init__(self, BEARER_TOKEN, CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN, ACCESS_TOKEN_SECRET, user, nb_tweets) -> tweepy.API :
+        """Récupère les tokens d'authentification et les crédentials, le nom de l'utilisateur et le nombre de tweets à récupérer
+        :param BEARER_TOKEN: Token d'authentification
+        :param CONSUMER_KEY: Token d'authentification
+        :param CONSUMER_SECRET: Token
+        :param ACCESS_TOKEN: Token
+        :param ACCESS_TOKEN_SECRET: Token
+        :param user: Utilisateur dont on souhaite récupérer les tweets
+        :param nb_tweets: Nombre de tweets à récupérer"""
         self.client = tweepy.Client(BEARER_TOKEN, CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
         self.auth = tweepy.OAuth1UserHandler(CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
         self.api = tweepy.API(self.auth)
@@ -19,6 +28,8 @@ class GetTweets :
         self.main()
 
     def get_tweets(self) -> Tuple[str, list] :
+        """Récupère les tweets de l'utilisateur donné en paramètre
+        :return: Retourne le nom de l'utilisateur et la liste des tweets"""
         #L'utilisateur dont on souhaite récupérer les tweets
         user = self.user
         #Le nombre de tweets
@@ -29,6 +40,9 @@ class GetTweets :
 
     #Do the resizing
     def resizing(self,path) -> Tuple[Image, Tuple[int, int], Image, str] :
+        """Redimensionne l'image pour qu'elle soit carrée
+        :param path: Chemin de l'image
+        :return: Retourne l'image redimensionnée, les dimensions de l'image, l'image et le chemin de l'image"""
         img = self.get_image(path)
         # Dimensions de l'image
         width, height = img.size
@@ -53,6 +67,7 @@ class GetTweets :
         return img
 
     def main(self) :
+        """Fonction principale"""
         tweetcapture = TweetCapture()
         # list_link = ["https://twitter.com/iziatask/status/1577667448639102977?s=20&t=wCS7mk5sE7QbkY3rE3hq3Q","https://twitter.com/iziatask/status/1577637237981818880?s=20&t=wCS7mk5sE7QbkY3rE3hq3Q"]
         list_link = []
