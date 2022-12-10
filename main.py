@@ -69,7 +69,6 @@ class GetTweets :
     def main(self) :
         """Fonction principale"""
         tweetcapture = TweetCapture()
-        # list_link = ["https://twitter.com/iziatask/status/1577667448639102977?s=20&t=wCS7mk5sE7QbkY3rE3hq3Q","https://twitter.com/iziatask/status/1577637237981818880?s=20&t=wCS7mk5sE7QbkY3rE3hq3Q"]
         list_link = []
         user, tweets = self.get_tweets()
         for tweet in tweets:
