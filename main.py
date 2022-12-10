@@ -5,28 +5,25 @@ import time
 from typing import Tuple
 
 import tweepy
-from PIL import Images
+from PIL import Image
 from tweetcapture import *
 
 
 class GetTweets :
-    def __init__(self) :
+    def __init__(self, BEARER_TOKEN, CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN, ACCESS_TOKEN_SECRET, user) -> tweepy.API :
+        self.client = tweepy.Client(BEARER_TOKEN, CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
+        self.auth = tweepy.OAuth1UserHandler(CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
+        self.api = tweepy.API(self.auth)
+        self.user = user
         self.main()
-    #Connexion à l'API
-    def connexion(self, BEARER_TOKEN, CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN, ACCESS_TOKEN_SECRET) -> tweepy.API :
-        client = tweepy.Client(BEARER_TOKEN, CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
-        auth = tweepy.OAuth1UserHandler(CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
-        api = tweepy.API(auth)
-        return api
 
-    def get_tweets(self, user) -> Tuple[str, list] :
-        api = self.connexion()
+    def get_tweets(self) -> Tuple[str, list] :
         #L'utilisateur dont on souhaite récupérer les tweets
-        user = user
+        user = self.user
         #Le nombre de tweets
         limit = 1
         #Récupère les tweets (tweet_mode=extended récupère tout le tweet (bloqué à 140 car. sinon))
-        tweets = api.user_timeline(screen_name=user, count=limit, include_rts=False, exclude_replies=True, tweet_mode="extended")
+        tweets = self.api.user_timeline(screen_name=user, count=limit, include_rts=False, exclude_replies=True, tweet_mode="extended")
         return user, tweets
 
     def main(self):
@@ -83,4 +80,4 @@ if __name__ == "__main__":
     CONSUMER_SECRET = credentials["CONSUMER_SECRET"]
     ACCESS_TOKEN = credentials["ACCESS_TOKEN"]
     ACCESS_TOKEN_SECRET = credentials["ACCESS_TOKEN_SECRET"]
-    GetTweets(BEARER_TOKEN, CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
+    GetTweets(BEARER_TOKEN, CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN, ACCESS_TOKEN_SECRET, input("User : "))
