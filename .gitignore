@@ -3,3 +3,4 @@ credentials.json
 *.png
 __pycache__/
 contentconvertortwitterapi.txt
+*.egg-info/
