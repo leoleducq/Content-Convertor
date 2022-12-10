@@ -38,7 +38,7 @@ class GetTweets :
         return user, tweets
 
     #Do the resizing
-    def resizing(self,path) -> Tuple[Image, Tuple[int, int], Image, str] :
+    def resizing(self,path) -> Tuple[Tuple[int, int], str] :
         """Redimensionne l'image pour qu'elle soit carrée
         :param path: Chemin de l'image
         :return: Retourne l'image redimensionnée, les dimensions de l'image, l'image et le chemin de l'image"""
