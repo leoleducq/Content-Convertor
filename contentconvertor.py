@@ -37,7 +37,6 @@ class GetTweets :
         tweets = self.api.user_timeline(screen_name=user, count=limit, include_rts=False, exclude_replies=True, tweet_mode="extended")
         return user, tweets
 
-    #Do the resizing
     def resizing(self,path) -> Tuple[Tuple[int, int], str] :
         """Redimensionne l'image pour qu'elle soit carrée
         :param path: Chemin de l'image
@@ -59,7 +58,6 @@ class GetTweets :
         offset = ((background_width - width) // 2, (background_height - height) // 2)
         return fit_image, offset, img, path
 
-    #Get the image
     def get_image(self, img) -> Image :
         """Récupère l'image dans le path donné en paramètre"""
         img = Image.open(img)
