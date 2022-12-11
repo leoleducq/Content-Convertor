@@ -66,4 +66,4 @@ Ce package comprends différentes fonctions.
     ```
 
 ## Exemple d'utilisation
-Pour voir un exemple d'utilisation complet, rendez-vous ici : [example/example.py](./example/example.py).
+Pour voir un exemple d'utilisation complet, rendez-vous ici : [GitHub](https://github.com/leoleducq/Content-Convertor/blob/master/example/example.py).
