@@ -32,8 +32,8 @@ def get_tweets(api : tweepy.API, user : str, nb_tweets : int) -> Tuple[str, list
 def download_tweets(user, tweets : list) -> None :
     """Télécharge les tweets
     :param: user: Utilisateur dont on souhaite récupérer les tweets
-    :param: id: Identifiant du tweet
-    :param: tweets: Liste des tweets"""
+    :param: tweets: Liste des tweets
+    :return: None"""
     i = 1
     list_link = []
     for tweet in tweets:
@@ -47,14 +47,15 @@ def download_tweets(user, tweets : list) -> None :
 def get_image(path : str) -> Image :
     """Récupère l'image dans le path donné en paramètre
     :param: img: Chemin de l'image
-    :return: Retourne l'image"""
+    :return: Retourne l'objet Image"""
     img = Image.open(path)
     return img
 
 def resizing(img : Image, path : str) -> Tuple[Image, Tuple[int, int], Image] :
     """Redimensionne l'image pour qu'elle soit carrée
+    :param img: Image à redimensionner
     :param path: Chemin de l'image
-    :return: Retourne un objet Image redimensionnée, les dimensions de l'image, l'image et le chemin de l'image"""
+    :return: None"""
     # Dimensions de l'image
     width, height = img.size
     # Valeur max entre les deux
