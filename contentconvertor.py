@@ -1,7 +1,9 @@
+import asyncio
 from typing import Tuple
 
 import tweepy
 from PIL import Image
+from tweetcapture import TweetCapture
 
 
 def connexion_to_api(BEARER_TOKEN : str, CONSUMER_KEY : str, CONSUMER_SECRET : str, ACCESS_TOKEN : str, ACCESS_TOKEN_SECRET : str) -> tweepy.API :
@@ -17,13 +19,6 @@ def connexion_to_api(BEARER_TOKEN : str, CONSUMER_KEY : str, CONSUMER_SECRET : s
     api = tweepy.API(auth)
     return api
 
-def get_image(img : str) -> Image :
-    """Récupère l'image dans le path donné en paramètre
-    :param: img: Chemin de l'image
-    :return: Retourne l'image"""
-    img = Image.open(img)
-    return img
-
 def get_tweets(api : tweepy.API, user : str, nb_tweets : int) -> Tuple[str, list] :
     """Récupère les tweets de l'utilisateur donné en paramètre
     :param: api: API de tweepy
@@ -34,11 +29,32 @@ def get_tweets(api : tweepy.API, user : str, nb_tweets : int) -> Tuple[str, list
     tweets = api.user_timeline(screen_name=user, count=nb_tweets, include_rts=False, exclude_replies=True, tweet_mode="extended")
     return user, tweets
 
-def resizing(path : str) -> Tuple[Tuple[int, int], str] :
+def download_tweets(user, tweets : list) -> None :
+    """Télécharge les tweets
+    :param: user: Utilisateur dont on souhaite récupérer les tweets
+    :param: id: Identifiant du tweet
+    :param: tweets: Liste des tweets"""
+    i = 1
+    list_link = []
+    for tweet in tweets:
+        id = tweet.id
+        list_link.append(f"https://twitter.com/{user}/status/{id}?s=20&t=wCS7mk5sE7QbkY3rE3hq3Q")
+    i=1
+    for link in list_link:
+        asyncio.run(TweetCapture().screenshot(link, f"{i}.png", mode=0, night_mode=2))
+        i+=1
+
+def get_image(path : str) -> Image :
+    """Récupère l'image dans le path donné en paramètre
+    :param: img: Chemin de l'image
+    :return: Retourne l'image"""
+    img = Image.open(path)
+    return img
+
+def resizing(img : Image, path : str) -> Tuple[Image, Tuple[int, int], Image] :
     """Redimensionne l'image pour qu'elle soit carrée
     :param path: Chemin de l'image
-    :return: Retourne l'image redimensionnée, les dimensions de l'image, l'image et le chemin de l'image"""
-    img = get_image(path)
+    :return: Retourne un objet Image redimensionnée, les dimensions de l'image, l'image et le chemin de l'image"""
     # Dimensions de l'image
     width, height = img.size
     # Valeur max entre les deux
@@ -53,4 +69,9 @@ def resizing(path : str) -> Tuple[Tuple[int, int], str] :
     background_width, background_height = fit_image.size
     # Petit calcul pour dire de bien centrer l'image sur le fond noir
     offset = ((background_width - width) // 2, (background_height - height) // 2)
-    return fit_image, offset, img, path
+    # Colle l'image sur le fond noir
+    fit_image.paste(img, offset)
+    # On colle l'image sur le fond noir
+    fit_image.paste(img, offset)
+    # On sauvegarde l'image
+    fit_image.save(path, quality=100)
