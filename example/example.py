@@ -1,10 +1,8 @@
-import asyncio
 import json
 import os
 
-from tweetcapture import *
+import contentconvertor.contentconvertor as cc
 
-import contentconvertor as cc
 
 class contentconvertor :
 
