@@ -37,10 +37,9 @@ def get_tweets(api : tweepy.API, user_id : str, *args, **kwargs) -> list :
         elif key == "exclude" :
             exclude = value
     if exclude == "" :
-        tweets = api.get_users_tweets(id=user_id, max_results=nb_tweets)
+        return api.get_users_tweets(id=user_id, max_results=nb_tweets)
     else :
-        tweets = api.get_users_tweets(id=user_id, max_results=nb_tweets, exclude=exclude)
-    return tweets
+        return api.get_users_tweets(id=user_id, max_results=nb_tweets, exclude=exclude)
 
 def download_tweet(user, tweet : str, *args, **kwargs) -> None :
     """Télécharge les tweets
