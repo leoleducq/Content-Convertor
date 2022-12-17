@@ -8,7 +8,8 @@ class contentconvertor :
 
     def __init__(self, BEARER_TOKEN : str, CONSUMER_KEY : str, CONSUMER_SECRET : str, ACCESS_TOKEN : str, ACCESS_TOKEN_SECRET : str, user : str, nb_tweets : int) :
         api = cc.connexion_to_api(BEARER_TOKEN, CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
-        self.user, self.tweets = cc.get_tweets(api ,user, nb_tweets)
+        self.tweets = cc.get_tweets(api ,user, nb_tweets=nb_tweets)
+        self.user = user
         self.main()
 
     def main(self) :
@@ -26,7 +27,7 @@ class contentconvertor :
 
 if __name__ == "__main__":
     # Récupère les crédentials dans le fichier credentials.json
-    with open("credentials.json", "r") as f:
+    with open("credentials.json", "r") as f :
         credentials = json.load(f)
     BEARER_TOKEN = credentials["BEARER_TOKEN"]
     CONSUMER_KEY = credentials["CONSUMER_KEY"]
