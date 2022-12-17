@@ -1,7 +1,7 @@
 # Content-Convertor
 
 Content-Convertor est un package python permettant de convertir des tweets en fichiers png prêts à être postés sur Instagram.
-
+![Exemple](media/banniere.png)
 ## Installation
 Pour l'installer, il suffit de lancer la commande : `pip install contentconvertor`.
 
@@ -48,9 +48,10 @@ Ce package comprends différentes fonctions.
 **Liste des paramètres dans l'ordre**
     - Obligatoire :
         - `user` : utilisateur 
-        - `tweets` : (obtenu avec la fonction `get_tweets`)
+        - `tweet` : (itérer sur la liste obtenu avec la fonction `get_tweets`)
     - Optionnel :
         - `path` : chemin où télécharger les tweets (par défaut : "")
+        - `name` : nom du fichier (par défaut : "tweet")
         - `mode` : mode de capture d'écran (par défaut  : 0)
         - `nigh_mode` : mode nuit (par défaut : 2)  
 
@@ -58,29 +59,13 @@ Ce package comprends différentes fonctions.
 - Code d'exemple :  
     - Minimum requis
     ```python
-    download_tweets(user, tweets)
+    for tweet in list_tweets.data:
+        download_tweets(user, tweet)
     ```
     - Avec tous les paramètres
     ```python
-    download_tweets(user, tweets, path="images", mode=0, nigh_mode=2)
-    ```
-
-5. `get_image` : permet de récupérer l'image d'un tweet. Il faut pour cela rentrer le path de l'image.  
-**Liste des paramètres dans l'ordre**  
-        - `path` : path de l'image  
-**Retourne l'objet Image**
-- Code d'exemple : 
-    ```python
-    image = get_image("chemin/vers/image.png")
-    ```
-
-6. `resizing` : permet de redimensionner une image.  
-**Liste des paramètres dans l'ordre**  
-        - `image` : objet Image (obtenu avec la fonction `get_image`)  
-**Retourne rien, vous aurez votre image redimensionnée enregistrée au même endroit que précédemment.**
-    - Code d'exemple : 
-    ```python
-    resizing(image)
+    for tweet in list_tweets.data:
+        download_tweets(user, tweets, path="images/", name="screenshot", mode=0, nigh_mode=2)
     ```
 
 ## Exemple d'utilisation
