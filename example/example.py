@@ -6,8 +6,8 @@ import contentconvertor.contentconvertor as cc
 
 class contentconvertor :
 
-    def __init__(self, BEARER_TOKEN : str, CONSUMER_KEY : str, CONSUMER_SECRET : str, ACCESS_TOKEN : str, ACCESS_TOKEN_SECRET : str, user : str, nb_tweets : int) :
-        api = cc.connexion_to_api(BEARER_TOKEN, CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
+    def __init__(self, CONSUMER_KEY : str, CONSUMER_SECRET : str, ACCESS_TOKEN : str, ACCESS_TOKEN_SECRET : str, user : str, nb_tweets : int) :
+        api = cc.connexion_to_api(CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
         self.tweets = cc.get_tweets(api ,user, nb_tweets=nb_tweets)
         self.user = user
         self.main()
@@ -29,9 +29,8 @@ if __name__ == "__main__":
     # Récupère les crédentials dans le fichier credentials.json
     with open("credentials.json", "r") as f :
         credentials = json.load(f)
-    BEARER_TOKEN = credentials["BEARER_TOKEN"]
     CONSUMER_KEY = credentials["CONSUMER_KEY"]
     CONSUMER_SECRET = credentials["CONSUMER_SECRET"]
     ACCESS_TOKEN = credentials["ACCESS_TOKEN"]
     ACCESS_TOKEN_SECRET = credentials["ACCESS_TOKEN_SECRET"]
-    contentconvertor(BEARER_TOKEN, CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN, ACCESS_TOKEN_SECRET, input("User : "), input("Nombre de tweets : "))
+    contentconvertor(CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN, ACCESS_TOKEN_SECRET, input("User : "), input("Nombre de tweets : "))
