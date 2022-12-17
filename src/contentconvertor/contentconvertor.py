@@ -42,46 +42,34 @@ def get_tweets(api : tweepy.API, user_id : str, *args, **kwargs) -> list :
         tweets = api.get_users_tweets(id=user_id, max_results=nb_tweets, exclude=exclude)
     return tweets
 
-def download_tweets(user, tweets : list, *args, **kwargs) -> None :
+def download_tweet(user, tweet : str, *args, **kwargs) -> None :
     """Télécharge les tweets
-    :param: user: Utilisateur dont on souhaite récupérer les tweets
-    :param: tweets: Liste des tweets
-    :kwargs: path: Chemin où sauvegarder les images, par défaut [""]
+    :param: user: Utilisateur dont on souhaite télécharger le tweet
+    :param: tweet: Tweet à télécharger
+    :kwargs: path: Chemin où sauvegarder les images, par défaut ""
+    :kwargs: name: Nom du fichier, par défaut "tweet"
     :kwargs: mode: Mode de capture d'écran, par défaut 0
     :kwargs: night_mode: Mode nuit, par défaut 0
     :return: None"""
     path = ""
+    name = "tweet"
     mode = 0
     night_mode = 2
     # Récupère les arguments
     for key, value in kwargs.items() :
         if key == "path" :
             path = value
+        elif key == "name" :
+            name = value
         elif key == "mode" :
             mode = value
         elif key == "night_mode" :
             night_mode = value
-    i = 1
-    list_link = []
-    for tweet in tweets.data :
-        id = tweet.id
-        list_link.append(f"https://twitter.com/{user}/status/{id}?s=20&t=wCS7mk5sE7QbkY3rE3hq3Q")
-    i=1
-    for link in list_link :
-        asyncio.run(TweetCapture().screenshot(link, f"{path}{i}.png", mode=mode, night_mode=night_mode))
-        i+=1
-
-def get_image(path : str) -> Image :
-    """Récupère l'image dans le path donné en paramètre
-    :param: img: Chemin de l'image
-    :return: Retourne l'objet Image"""
-    return Image.open(path)
-
-def resizing(img : Image, path : str) -> None :
-    """Redimensionne l'image pour qu'elle soit carrée
-    :param img: Image à redimensionner
-    :param path: Chemin de l'image
-    :return: None"""
+    id = tweet.id
+    link = f"https://twitter.com/{user}/status/{id}?s=20&t=wCS7mk5sE7QbkY3rE3hq3Q"
+    path = f"{path}{name}.png"
+    asyncio.run(TweetCapture().screenshot(link, path, mode=mode, night_mode=night_mode))
+    img = Image.open(path)
     # Dimensions de l'image
     width, height = img.size
     # Valeur max entre les deux
