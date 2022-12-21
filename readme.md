@@ -16,27 +16,27 @@ Ce package comprends différentes fonctions.
 ### 1. Se connecter à l'API de Twitter
 `connexion_to_api` : permet de se connecter à l'API de Twitter. Il faut pour cela rentrer les clés d'API et les tokens d'accès. Pour les obtenir, il faut créer une application sur le site de Twitter.  
 **Liste des paramètres dans l'ordre**
-    - `bearer_token` : clé d'API (Bearer Token)
+- `bearer_token` : clé d'API (Bearer Token)
 
-    **Retourne la connexion à l'API de Twitter**  
+**Retourne la connexion à l'API de Twitter**
 - Code d'exemple : 
     ```python
     api = t2g.connexion_to_api(bearer_token="")
     ```
-### 2. Récupérer l'ID de l'utilisateur
+### 2. Récupérer l'ID de l'utilisateur  
 `get_user_id` : permet de récupérer l'id d'un utilisateur. Il faut pour cela rentrer le nom de l'utilisateur.  
-**Liste des paramètres dans l'ordre**
-    - `api` : connexion à l'API de Twitter (obtenue avec la fonction `connexion_to_api`)
-    - `username` : nom de l'utilisateur (sans le @)
+**Liste des paramètres dans l'ordre**  
+- `api` : connexion à l'API de Twitter (obtenue avec la fonction `connexion_to_api`)  
+- `username` : nom de l'utilisateur (sans le @)
 
-    **Retourne l'id de l'utilisateur**
+**Retourne l'id de l'utilisateur**
 - Code d'exemple : 
     ```python
     user_id = t2g.get_user_id(api, "iziatask")
     ```
 ### 3. Récupérer les tweets
 `get_tweets` : permet de récupérer les tweets d'un utilisateur. Il faut pour cela rentrer le nom de l'utilisateur et le nombre de tweets à récupérer.  
-    **Liste des paramètres dans l'ordre**
+**Liste des paramètres dans l'ordre**
 - Obligatoire :
     - `api` : connexion à l'API de Twitter (obtenue avec la fonction `connexion_to_api`)
     - `user_id` : ID de l'utilisateur (obtenu avec la fonction `get_user_id`)
@@ -44,7 +44,7 @@ Ce package comprends différentes fonctions.
     - `nb_tweets` : nombre de tweets à récupérer (par défaut : 5)
     - `exclude` : exclure les tweets de type "replies" ou "retweets" (par défaut : None) 
 
-    **Retourne une liste de tweets**  
+**Retourne une liste de tweets**  
 - Code d'exemple : 
     - Minimum requis
     ```python
@@ -56,17 +56,17 @@ Ce package comprends différentes fonctions.
     ```
 ### 4. Télécharger les tweets
 `download_tweets` : permet de télécharger au format png les tweets d'un utilisateur.  
-**Liste des paramètres dans l'ordre**
-    - Obligatoire :
-        - `user` : utilisateur 
-        - `tweet` : (itérer sur la liste obtenue avec la fonction `get_tweets`)
-    - Optionnel :
-        - `path` : chemin où télécharger les tweets (par défaut : "")
-        - `name` : nom du fichier (par défaut : "tweet")
-        - `mode` : mode de capture d'écran (par défaut  : 0)
-        - `nigh_mode` : mode nuit (par défaut : 2)  
+**Liste des paramètres dans l'ordre**  
+- Obligatoire :
+    - `user` : utilisateur 
+    - `tweet` : (itérer sur la liste obtenue avec la fonction `get_tweets`)
+- Optionnel :
+    - `path` : chemin où télécharger les tweets (par défaut : "")
+    - `name` : nom du fichier (par défaut : "tweet")
+    - `mode` : mode de capture d'écran (par défaut  : 0)
+    - `nigh_mode` : mode nuit (par défaut : 2)  
 
-    **Retourne rien, vous aurez vos tweets téléchargés au format png, à l'endroit où vous avez lancé votre script.**
+**Retourne rien, vous aurez vos tweets téléchargés au format png, à l'endroit où vous avez lancé votre script.**
 - Code d'exemple :  
     - Minimum requis
     ```python
