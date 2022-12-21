@@ -13,7 +13,8 @@ from contentconvertor import tweet2gram as t2g
 ```
 Ce package comprends différentes fonctions.
 
-1. `connexion_to_api` : permet de se connecter à l'API de Twitter. Il faut pour cela rentrer les clés d'API et les tokens d'accès. Pour les obtenir, il faut créer une application sur le site de Twitter.  
+### 1. Se connecter à l'API de Twitter
+`connexion_to_api` : permet de se connecter à l'API de Twitter. Il faut pour cela rentrer les clés d'API et les tokens d'accès. Pour les obtenir, il faut créer une application sur le site de Twitter.  
 **Liste des paramètres dans l'ordre**
     - `bearer_token` : clé d'API (Bearer Token)
 
@@ -22,7 +23,8 @@ Ce package comprends différentes fonctions.
     ```python
     api = t2g.connexion_to_api(bearer_token="")
     ```
-2. `get_user_id` : permet de récupérer l'id d'un utilisateur. Il faut pour cela rentrer le nom de l'utilisateur.  
+### 2. Récupérer l'ID de l'utilisateur
+`get_user_id` : permet de récupérer l'id d'un utilisateur. Il faut pour cela rentrer le nom de l'utilisateur.  
 **Liste des paramètres dans l'ordre**
     - `api` : connexion à l'API de Twitter (obtenue avec la fonction `connexion_to_api`)
     - `username` : nom de l'utilisateur (sans le @)
@@ -32,8 +34,8 @@ Ce package comprends différentes fonctions.
     ```python
     user_id = t2g.get_user_id(api, "iziatask")
     ```
-
-3. `get_tweets` : permet de récupérer les tweets d'un utilisateur. Il faut pour cela rentrer le nom de l'utilisateur et le nombre de tweets à récupérer.  
+### 3. Récupérer les tweets
+`get_tweets` : permet de récupérer les tweets d'un utilisateur. Il faut pour cela rentrer le nom de l'utilisateur et le nombre de tweets à récupérer.  
     **Liste des paramètres dans l'ordre**
 - Obligatoire :
     - `api` : connexion à l'API de Twitter (obtenue avec la fonction `connexion_to_api`)
@@ -52,12 +54,12 @@ Ce package comprends différentes fonctions.
     ```python
     list_tweets = t2g.get_tweets(api, "iziatask", nb_tweets=5, exclude=["replies", "retweets"])
     ```
-
-4. `download_tweets` : permet de télécharger au format png les tweets d'un utilisateur.  
+### 4. Télécharger les tweets
+`download_tweets` : permet de télécharger au format png les tweets d'un utilisateur.  
 **Liste des paramètres dans l'ordre**
     - Obligatoire :
         - `user` : utilisateur 
-        - `tweet` : (itérer sur la liste obtenu avec la fonction `get_tweets`)
+        - `tweet` : (itérer sur la liste obtenue avec la fonction `get_tweets`)
     - Optionnel :
         - `path` : chemin où télécharger les tweets (par défaut : "")
         - `name` : nom du fichier (par défaut : "tweet")
