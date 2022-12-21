@@ -6,6 +6,11 @@ Content-Convertor est un package python permettant de convertir des tweets en fi
 Pour l'installer, il suffit de lancer la commande : `pip install contentconvertor`.
 
 ## Utilisation
+
+Importez le package avec le code suivant : 
+```python
+from contentconvertor import tweet2gram as t2g  
+```
 Ce package comprends différentes fonctions.
 
 1. `connexion_to_api` : permet de se connecter à l'API de Twitter. Il faut pour cela rentrer les clés d'API et les tokens d'accès. Pour les obtenir, il faut créer une application sur le site de Twitter.  
@@ -15,7 +20,7 @@ Ce package comprends différentes fonctions.
     **Retourne la connexion à l'API de Twitter**  
 - Code d'exemple : 
     ```python
-    api = connexion_to_api(bearer_token="")
+    api = t2g.connexion_to_api(bearer_token="")
     ```
 2. `get_user_id` : permet de récupérer l'id d'un utilisateur. Il faut pour cela rentrer le nom de l'utilisateur.  
 **Liste des paramètres dans l'ordre**
@@ -23,6 +28,10 @@ Ce package comprends différentes fonctions.
     - `username` : nom de l'utilisateur (sans le @)
 
     **Retourne l'id de l'utilisateur**
+- Code d'exemple : 
+    ```python
+    user_id = t2g.get_user_id(api, "iziatask")
+    ```
 
 3. `get_tweets` : permet de récupérer les tweets d'un utilisateur. Il faut pour cela rentrer le nom de l'utilisateur et le nombre de tweets à récupérer.  
     **Liste des paramètres dans l'ordre**
@@ -37,11 +46,11 @@ Ce package comprends différentes fonctions.
 - Code d'exemple : 
     - Minimum requis
     ```python
-    list_tweets = get_tweets(api, "iziatask")
+    list_tweets = t2g.get_tweets(api, "iziatask")
     ```
     - Avec tous les paramètres
     ```python
-    list_tweets = get_tweets(api, "iziatask", nb_tweets=5, exclude=["replies", "retweets"])
+    list_tweets = t2g.get_tweets(api, "iziatask", nb_tweets=5, exclude=["replies", "retweets"])
     ```
 
 4. `download_tweets` : permet de télécharger au format png les tweets d'un utilisateur.  
@@ -60,12 +69,12 @@ Ce package comprends différentes fonctions.
     - Minimum requis
     ```python
     for tweet in list_tweets.data:
-        download_tweets(user, tweet)
+        t2g.download_tweets(user, tweet)
     ```
     - Avec tous les paramètres
     ```python
     for tweet in list_tweets.data:
-        download_tweets(user, tweets, path="images/", name="screenshot", mode=0, nigh_mode=2)
+        t2g.download_tweets(user, tweets, path="images/", name="screenshot", mode=0, nigh_mode=2)
     ```
 
 ## Exemple d'utilisation
