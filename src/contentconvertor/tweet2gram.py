@@ -7,10 +7,7 @@ from typing import Tuple
 
 def connexion_to_api(BEARER_TOKEN : str) -> tweepy.API :
     """Connexion à l'API de tweepy
-    :param: CONSUMER_KEY: Clé d'authentification
-    :param: CONSUMER_SECRET: Clé secret d'authentification
-    :param: ACCESS_TOKEN: Token d'accès
-    :param: ACCESS_TOKEN_SECRET: Token d'accès secret
+    :param: BEARER_TOKEN: Token d'accès à l'API
     :return: Retourne l'API de tweepy"""
     return tweepy.Client(bearer_token=BEARER_TOKEN)
 
