@@ -20,7 +20,7 @@ def get_user_id(api : tweepy.API, user : str) -> Tuple[str, str] :
     user = api.get_user(username=user)
     return user.data.id
 
-def get_tweets(api : tweepy.API, user_id : str, nb_tweets : int = None, exclude : str = None) -> list :
+def get_tweets(api : tweepy.API, user_id : str, nb_tweets : int = None, exclude : list = None) -> list :
     """Récupère les tweets de l'utilisateur donné en paramètre
     :param: api: API de tweepy
     :param: user_id: l'ID de l'utilisateur dont on souhaite récupérer les tweets
