@@ -19,50 +19,41 @@ def get_user_id(api : tweepy.API, user : str) -> Tuple[str, str] :
     user = api.get_user(username=user)
     return user.data.id
 
-def get_tweets(api : tweepy.API, user_id : str, *args, **kwargs) -> list :
+def get_tweets(api : tweepy.API, user_id : str, nb_tweets : int = None, exclude : str = None) -> list :
     """Récupère les tweets de l'utilisateur donné en paramètre
     :param: api: API de tweepy
     :param: user_id: l'ID de l'utilisateur dont on souhaite récupérer les tweets
-    :kwargs: nb_tweets: Nombre de tweets à récupérer, par défaut 5
-    :kwargs: exclude: Exclure les tweets de type "replies" et/ou "retweets", par défaut ""
+    :param: nb_tweets: Nombre de tweets à récupérer, par défaut 5
+    :param: exclude: Exclure les tweets de type replies ou retweets, par défaut "" (aucun)
     :return: Retourne la liste des tweets"""
-    nb_tweets = 5
-    exclude = ""
-    for key, value in kwargs.items() :
-        if key == "nb_tweets" :
-            nb_tweets = value
-        elif key == "exclude" :
-            exclude = value
-    if exclude == "" :
+    if nb_tweets == None :
+        nb_tweets = 5
+    if exclude == None :
         return api.get_users_tweets(id=user_id, max_results=nb_tweets)
     else :
         return api.get_users_tweets(id=user_id, max_results=nb_tweets, exclude=exclude)
 
-def download_tweet(user, tweet : str, *args, **kwargs) -> None :
+def download_tweet(user : str, tweet : str = None, path : str = None, name : str = None, mode : int = None, night_mode : int = None, link : str = None) -> None :
     """Télécharge les tweets
     :param: user: Utilisateur dont on souhaite télécharger le tweet
     :param: tweet: Tweet à télécharger
-    :kwargs: path: Chemin où sauvegarder les images, par défaut ""
-    :kwargs: name: Nom du fichier, par défaut "tweet"
-    :kwargs: mode: Mode de capture d'écran, par défaut 0
-    :kwargs: night_mode: Mode nuit, par défaut 0
+    :param: path: Chemin où enregistrer le tweet
+    :param: name: Nom du fichier
+    :param: mode: Mode de capture, 0 = capture normale, 1 = capture en mode nuit, 2 = capture en mode jour
+    :param: night_mode: Mode de capture en mode nuit, 0 = capture en mode nuit, 1 = capture en mode jour
+    :param: link: Lien du tweet
     :return: None"""
-    path = ""
-    name = "tweet"
-    mode = 0
-    night_mode = 2
-    # Récupère les arguments
-    for key, value in kwargs.items() :
-        if key == "path" :
-            path = value
-        elif key == "name" :
-            name = value
-        elif key == "mode" :
-            mode = value
-        elif key == "night_mode" :
-            night_mode = value
-    id = tweet.id
-    link = f"https://twitter.com/{user}/status/{id}?s=20&t=wCS7mk5sE7QbkY3rE3hq3Q"
+    if path == None :
+        path = ""
+    if name == None :
+        name = "tweet"
+    if mode == None :
+        mode = 0
+    if night_mode == None :
+        night_mode = 2
+    if link == None :
+        tweet_id = tweet.id
+        link = f"https://twitter.com/{user}/status/{tweet_id}"
     path = f"{path}{name}.png"
     asyncio.run(TweetCapture().screenshot(link, path, mode=mode, night_mode=night_mode))
     img = Image.open(path)
