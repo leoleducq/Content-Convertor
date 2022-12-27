@@ -48,18 +48,23 @@ Ce package comprends différentes fonctions.
 - Code d'exemple : 
     - Minimum requis
     ```python
-    list_tweets = t2g.get_tweets(api, "iziatask")
+    list_tweets = t2g.get_tweets(api, user_id)
     ```
     - Avec tous les paramètres
     ```python
-    list_tweets = t2g.get_tweets(api, "iziatask", nb_tweets=5, exclude=["replies", "retweets"])
+    list_tweets = t2g.get_tweets(api, user_id, nb_tweets=5, exclude=["replies", "retweets"])
     ```
 ### 4. Télécharger les tweets
-`download_tweets` : permet de télécharger au format png les tweets d'un utilisateur.  
+`download_tweets` : 
+- permet de télécharger au format png les tweets d'un utilisateur.  
+- permet de télécharger au format png un tweet en particulier.
+
 **Liste des paramètres dans l'ordre**  
 - Obligatoire :
     - `user` : utilisateur 
     - `tweet` : (itérer sur la liste obtenue avec la fonction `get_tweets`)
+    ou
+    - `link` : lien du tweet
 - Optionnel :
     - `path` : chemin où télécharger les tweets (par défaut : "")
     - `name` : nom du fichier (par défaut : "tweet")
@@ -68,6 +73,7 @@ Ce package comprends différentes fonctions.
 
 **Retourne rien, vous aurez vos tweets téléchargés au format png, à l'endroit où vous avez lancé votre script.**
 - Code d'exemple :  
+- Avec la liste de tweets obtenue avec la fonction `get_tweets`
     - Minimum requis
     ```python
     for tweet in list_tweets.data:
@@ -77,6 +83,15 @@ Ce package comprends différentes fonctions.
     ```python
     for tweet in list_tweets.data:
         t2g.download_tweets(user, tweets, path="images/", name="screenshot", mode=0, nigh_mode=2)
+    ```
+- Avec le lien du tweet
+    - Minimum requis
+    ```python
+    t2g.download_tweets(user, link="https://twitter.com/iziatask/status/1606364038195093504")
+    ```
+    - Avec tous les paramètres
+    ```python
+    t2g.download_tweets(user, link="https://twitter.com/iziatask/status/1606364038195093504", path="images/", name="screenshot", mode=0, nigh_mode=2)
     ```
 
 ## Exemple d'utilisation
