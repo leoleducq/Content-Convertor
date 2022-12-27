@@ -1,9 +1,10 @@
 import asyncio
+from typing import Tuple
 
 import tweepy
 from PIL import Image
 from tweetcapture import TweetCapture
-from typing import Tuple
+
 
 def connexion_to_api(BEARER_TOKEN : str) -> tweepy.API :
     """Connexion à l'API de tweepy
