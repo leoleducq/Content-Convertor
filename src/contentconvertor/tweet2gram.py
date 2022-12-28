@@ -60,6 +60,10 @@ def download_tweet(user : str, tweet : str = None, path : str = None, name : str
     img = Image.open(path)
     # Dimensions de l'image
     width, height = img.size
+    for y in range(height - 1, height - 51, -1):  # Parcourez les 50 pixels du bas en commençant par le dernier
+        for x in range(width):
+            if img.getpixel((x, y)) != (0, 0, 0):  # Si le pixel n'est pas noir, mettez-le en noir
+                img.putpixel((x, y), (0, 0, 0))
     # Valeur max entre les deux
     dimension = max(width, height)
     # Nouvelles dimensions de l'image
@@ -73,8 +77,6 @@ def download_tweet(user : str, tweet : str = None, path : str = None, name : str
     # Petit calcul pour dire de bien centrer l'image sur le fond noir
     offset = ((background_width - width) // 2, (background_height - height) // 2)
     # Colle l'image sur le fond noir
-    fit_image.paste(img, offset)
-    # On colle l'image sur le fond noir
     fit_image.paste(img, offset)
     # On sauvegarde l'image
     fit_image.save(path, quality=100)
